@@ -4,7 +4,7 @@
 let leftIndex; //            left image index
 let midIndex; //             middle image index
 let rightIndex; //           right image index
-let numRounds = 3; //        number of rounds counter
+let numRounds = 25; //        number of rounds counter
 let results; //              results of the voting
 
 // products names
@@ -89,6 +89,18 @@ function voting(event){
     numRounds -=1;
     // showing a button when reaching the decided rounds number
     if (numRounds === 0) {
+      section.removeEventListener('click', voting);//   stopping the event
+
+      leftImage.src = '../images/thanks.png';
+      leftImage.alt = 'thanks';
+      leftImage.title ='thanks';
+      midImage.src = '../images/thanks.png';
+      midImage.alt = 'thanks';
+      midImage.title = 'thanks';
+      rightImage.src ='../images/thanks.png';
+      rightImage.alt = 'thanks';
+      rightImage.title = 'thanks';
+
       results = document.createElement('button');
       result.appendChild(results);
       results.textContent='Results !';
@@ -101,7 +113,7 @@ function voting(event){
 
 
 // creating a function that will display the results
-function compute(event){
+function compute(){
   const table = document.createElement('ul');
   result.appendChild(table);
   for(let i=0; i<ProDis.all.length; i++){
