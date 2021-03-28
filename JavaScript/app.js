@@ -4,7 +4,7 @@
 let leftIndex; //            left image index
 let midIndex; //             middle image index
 let rightIndex; //           right image index
-let numRounds = 0; //        number of rounds counter
+let numRounds = 3; //        number of rounds counter
 let results; //              results of the voting
 
 // products names
@@ -21,7 +21,7 @@ function ProDis(name){
   this.shown = 0;
   ProDis.all.push(this);
 }
-ProDis.all = [];
+ProDis.all = [];//          an Array to contain all product
 
 // creating product objects
 for(let i=0; i<productNames.length; i++){
@@ -63,7 +63,7 @@ function display(){
   do{
   // rendering the right image
     rightIndex = randomNumb(ProDis.all.length-1, 0);
-    rightImage.src = ProDis.all[rightIndex].path;
+    rightImage.src =ProDis.all[rightIndex].path;
     rightImage.alt = ProDis.all[rightIndex].name;
     rightImage.title = ProDis.all[rightIndex].name;
   }while(rightIndex === leftIndex || rightIndex===midIndex);
@@ -86,9 +86,9 @@ function voting(event){
       ProDis.all[rightIndex].votes++;
     }
     display();
-    numRounds +=1;
+    numRounds -=1;
     // showing a button when reaching the decided rounds number
-    if (numRounds === 25) {
+    if (numRounds === 0) {
       results = document.createElement('button');
       result.appendChild(results);
       results.textContent='Results !';
@@ -107,7 +107,7 @@ function compute(event){
   for(let i=0; i<ProDis.all.length; i++){
     const elList = document.createElement('li');
     table.appendChild(elList);
-    elList.textContent = `${ProDis.all[i].name} had ${ProDis.all[i].votes} vote/s, and was seen ${ProDis.all[i].shown} times.`;
+    elList.textContent=`${ProDis.all[i].name} had ${ProDis.all[i].votes} vote/s, and was seen ${ProDis.all[i].shown} times.`;
   }
 }
 // displaying for the first time
