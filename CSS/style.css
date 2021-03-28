@@ -1,0 +1,51 @@
+/* Global */
+body{
+    padding: 50px;
+}
+header,main,footer{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #ddd;
+    display: block;
+    line-height: 62px;
+}
+/* //////////////////////////////////////// */
+/* Header */
+header h1{
+    font-size: 3rem;
+    font-weight: bold;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+}
+/* //////////////////////////////////////////////////// */
+/* main */
+main h4{
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+section#products>img{
+    width: 300px;
+    height: 300px;
+}
+section#products {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+section#result{
+    width: fit-content;
+}
+section#result button{
+    background-color: #ff1414;
+    color: wheat;
+    font-size: 2rem;
+    font-weight: bold;
+}
+ul{
+    margin-left: 50px;
+    line-height: 20px;
+    padding: 9px;
+}
+
