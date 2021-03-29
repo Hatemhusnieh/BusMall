@@ -4,8 +4,12 @@
 let leftIndex; //            left image index
 let midIndex; //             middle image index
 let rightIndex; //           right image index
-let numRounds = 3; //        number of rounds counter
-let results; //              results of the voting
+let numRounds = 25; //       number of rounds counter
+let diffLeftImg;//           different left image index
+let diffMidImg;//            different le image index
+let diffRightImg;//          different right image index
+let votesChart =[];//        to be used in proChart function
+let viewsChart =[];//        to be used in proChart function
 
 // products names
 const productNames =['bag', 'banana', 'bathroom', 'boots', 'breakfast',
@@ -35,7 +39,6 @@ const leftImage = document.getElementById('product1');
 const midImage = document.getElementById('product2');
 const rightImage = document.getElementById('product3');
 const section = document.getElementById('products');
-const result = document.getElementById('result');
 
 //generating a random number
 function randomNumb(max, min) {
@@ -44,29 +47,35 @@ function randomNumb(max, min) {
 
 // rendering 3 images
 function display(){
-  // rendering the left image
-  leftIndex = randomNumb(ProDis.all.length-1, 0);
-  leftImage.src = ProDis.all[leftIndex].path;
-  leftImage.alt = ProDis.all[leftIndex].name;
-  leftImage.title = ProDis.all[leftIndex].name;
+  // making sure next iteration is different
+  diffLeftImg = leftIndex;
+  do{
+    // rendering the left image
+    leftIndex = randomNumb(ProDis.all.length-1, 0);
+    leftImage.src = ProDis.all[leftIndex].path;
+    leftImage.alt = ProDis.all[leftIndex].name;
+    leftImage.title = ProDis.all[leftIndex].name;
+  }while(diffLeftImg === leftIndex || leftIndex === diffMidImg || leftIndex === diffRightImg);
   ProDis.all[leftIndex].shown +=1;
-  // assuring that mid image is different
+  // assuring that mid image is different from its neighbor image and previous iteration image
+  diffMidImg = midIndex;
   do{
     // rendering the middle image
     midIndex = randomNumb(ProDis.all.length-1, 0);
     midImage.src = ProDis.all[midIndex].path;
     midImage.alt = ProDis.all[midIndex].name;
     midImage.title = ProDis.all[midIndex].name;
-  }while(midIndex === leftIndex);
+  }while(midIndex === leftIndex || midIndex === diffMidImg || midIndex === diffLeftImg || midIndex === diffRightImg);
   ProDis.all[midIndex].shown +=1;
-  // assuring that left and mid images are not ad right image
+  // assuring that left image is different from its neighbor image and previous iteration image
+  diffRightImg = rightIndex;
   do{
-  // rendering the right image
+    // rendering the right image
     rightIndex = randomNumb(ProDis.all.length-1, 0);
     rightImage.src =ProDis.all[rightIndex].path;
     rightImage.alt = ProDis.all[rightIndex].name;
     rightImage.title = ProDis.all[rightIndex].name;
-  }while(rightIndex === leftIndex || rightIndex===midIndex);
+  }while(rightIndex === leftIndex || rightIndex === midIndex || rightIndex === diffRightImg || rightIndex === diffMidImg || rightIndex === diffLeftImg);
   ProDis.all[rightIndex].shown +=1;
 }
 // display();
@@ -90,8 +99,7 @@ function voting(event){
     // showing a button when reaching the decided rounds number
     if (numRounds === 0) {
       section.removeEventListener('click', voting);//   stopping the event
-
-      leftImage.src = '../images/thanks.png';
+      leftImage.src = './images/thanks.png';
       leftImage.alt = 'thanks';
       leftImage.title ='thanks';
       midImage.src = '../images/thanks.png';
@@ -100,28 +108,53 @@ function voting(event){
       rightImage.src ='../images/thanks.png';
       rightImage.alt = 'thanks';
       rightImage.title = 'thanks';
-
-      results = document.createElement('button');
-      result.appendChild(results);
-      results.textContent='Results !';
-      // creating an event when pressing on the button
-      results.addEventListener('click', compute);
+      // displaying the results
+      compute();
     }
-    // console.table(ProDis.all);
   }
 }
-
 
 // creating a function that will display the results
 function compute(){
   const table = document.createElement('ul');
-  result.appendChild(table);
   for(let i=0; i<ProDis.all.length; i++){
+    // setting votesChart and viewsChart data
+    votesChart.push(ProDis.all[i].votes);
+    viewsChart.push(ProDis.all[i].shown);
     const elList = document.createElement('li');
     table.appendChild(elList);
     elList.innerHTML=`<span id="proNam">${ProDis.all[i].name}</span> had <span id="proVot">${ProDis.all[i].votes}</span> vote/s, and was seen <span id="proSh">${ProDis.all[i].shown}</span> times.`;
   }
+  proChart();
 }
 // displaying for the first time
 display();
 
+// a function that will display a chart of products data after all rounds are finished
+function proChart(){
+  let ctx = document.getElementById('myChart').getContext('2d');
+  let chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: 'Votes',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: votesChart
+      },{
+        label: 'Views',
+        backgroundColor: '#0affd6',
+        borderColor: '#0affd6',
+        data: viewsChart
+      }
+      ]
+    },
+
+    // Configuration options go here
+    options: {}
+  });
+}
