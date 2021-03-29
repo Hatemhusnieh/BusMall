@@ -4,7 +4,7 @@
 let leftIndex; //            left image index
 let midIndex; //             middle image index
 let rightIndex; //           right image index
-let numRounds = 25; //        number of rounds counter
+let numRounds = 3; //        number of rounds counter
 let results; //              results of the voting
 
 // products names
@@ -119,7 +119,7 @@ function compute(){
   for(let i=0; i<ProDis.all.length; i++){
     const elList = document.createElement('li');
     table.appendChild(elList);
-    elList.textContent=`${ProDis.all[i].name} had ${ProDis.all[i].votes} vote/s, and was seen ${ProDis.all[i].shown} times.`;
+    elList.innerHTML=`<span id="proNam">${ProDis.all[i].name}</span> had <span id="proVot">${ProDis.all[i].votes}</span> vote/s, and was seen <span id="proSh">${ProDis.all[i].shown}</span> times.`;
   }
 }
 // displaying for the first time
