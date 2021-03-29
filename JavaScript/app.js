@@ -99,7 +99,7 @@ function voting(event){
     // showing a button when reaching the decided rounds number
     if (numRounds === 0) {
       section.removeEventListener('click', voting);//   stopping the event
-      leftImage.src = './images/thanks.png';
+      leftImage.src = '../images/thanks.png';
       leftImage.alt = 'thanks';
       leftImage.title ='thanks';
       midImage.src = '../images/thanks.png';
