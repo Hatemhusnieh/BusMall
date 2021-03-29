@@ -116,6 +116,7 @@ function voting(event){
 
 // creating a function that will display the results
 function compute(){
+  const list = document.getElementById('list');
   const table = document.createElement('ul');
   for(let i=0; i<ProDis.all.length; i++){
     // setting votesChart and viewsChart data

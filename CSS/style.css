@@ -45,5 +45,16 @@ section#result button{
     font-size: 2rem;
     font-weight: bold;
 }
+<<<<<<< HEAD
 
+=======
+ul{
+    margin-left: 50px;
+    line-height: 20px;
+    padding: 9px;
+}
+section#products:hover{
+    cursor: pointer;
+}
+>>>>>>> 126e5ebdd5984dc3aa91a44124712971403360a0
 
