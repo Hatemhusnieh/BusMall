@@ -23,7 +23,7 @@ const productNames =['bag', 'banana', 'bathroom', 'boots', 'breakfast',
 //products constructor
 function ProDis(name){
   this.name = name;
-  this.path = `./images/${name}.jpg`;
+  this.path = `../images/${name}.jpg`;
   this.votes = 0;
   this.shown = 0;
   ProDis.all.push(this);//   pushing every object created into an array called (all)
@@ -133,13 +133,13 @@ function voting(event){
     // showing a button when reaching the decided rounds number
     if (numRounds === 0) {
       section.removeEventListener('click', voting);//   stopping the event
-      leftImage.src = './images/thanks.png';
+      leftImage.src = '../images/thanks.png';
       leftImage.alt = 'thanks';
       leftImage.title ='thanks';
-      midImage.src = './images/thanks.png';
+      midImage.src = '../images/thanks.png';
       midImage.alt = 'thanks';
       midImage.title = 'thanks';
-      rightImage.src ='./images/thanks.png';
+      rightImage.src ='../images/thanks.png';
       rightImage.alt = 'thanks';
       rightImage.title = 'thanks';
       // displaying the results
