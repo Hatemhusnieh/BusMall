@@ -4,7 +4,7 @@
 let leftIndex; //            left image index
 let midIndex; //             middle image index
 let rightIndex; //           right image index
-let numRounds = 25; //       number of rounds counter
+let numRounds = 5; //       number of rounds counter
 let diffLeftImg;//           different left image index
 let diffMidImg;//            different le image index
 let diffRightImg;//          different right image index
@@ -20,17 +20,31 @@ const productNames =['bag', 'banana', 'bathroom', 'boots', 'breakfast',
 //products constructor
 function ProDis(name){
   this.name = name;
-  this.path = `./images/${name}.jpg`;
+  this.path = `../images/${name}.jpg`;
   this.votes = 0;
   this.shown = 0;
-  ProDis.all.push(this);
+  ProDis.all.push(this);// pushing every object created into an array called (all)
+
+  setProducts() // storing each created object product into local storage
 }
-ProDis.all = [];//          an Array to contain all product
+
+ProDis.all = [];//           an Array to contain all product
 
 // creating product objects
 for(let i=0; i<productNames.length; i++){
   new ProDis(productNames[i]);
 }
+
+
+
+function setProducts(){
+  ProDis.all.push(this);// pushing every object created into an array called (all)
+  let productsSave = JSON.stringify(ProDis.all); // converting product objects into strings
+  localStorage.setItem('Products',productsSave); // saving product objects at local storage
+}
+
+
+
 
 // console.table(ProDis.all);
 
@@ -45,12 +59,14 @@ function randomNumb(max, min) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+
 // rendering 3 images
 function display(){
-  // making sure next iteration is different
+  // assigning the previous indexes to their variables
   diffLeftImg = leftIndex;
   diffMidImg = midIndex;
   diffRightImg = rightIndex;
+  // declaring a random index to left image and making sure next iteration is different
   do{
     // rendering the left image
     leftIndex = randomNumb(ProDis.all.length-1, 0);
@@ -59,7 +75,8 @@ function display(){
     leftImage.title = ProDis.all[leftIndex].name;
   }while(leftIndex === diffLeftImg || leftIndex === diffMidImg || leftIndex === diffRightImg);
   ProDis.all[leftIndex].shown +=1;
-  // assuring that mid image is different from its neighbor image and previous iteration image
+  // declaring a random index to middle image and assuring that mid image
+  // is different from its neighbor image and previous iteration image
   do{
     // rendering the middle image
     midIndex = randomNumb(ProDis.all.length-1, 0);
@@ -68,7 +85,8 @@ function display(){
     midImage.title = ProDis.all[midIndex].name;
   }while(midIndex === leftIndex || midIndex === diffMidImg || midIndex === diffLeftImg || midIndex === diffRightImg);
   ProDis.all[midIndex].shown +=1;
-  // assuring that left image is different from its neighbor image and previous iteration image
+  // declaring a random index to right image and assuring that left image
+  // is different from its neighbor image and previous iteration image
   do{
     // rendering the right image
     rightIndex = randomNumb(ProDis.all.length-1, 0);
@@ -77,9 +95,9 @@ function display(){
     rightImage.title = ProDis.all[rightIndex].name;
   }while(rightIndex === leftIndex || rightIndex === midIndex || rightIndex === diffRightImg || rightIndex === diffMidImg || rightIndex === diffLeftImg);
   ProDis.all[rightIndex].shown +=1;
-  console.log('current',leftIndex,midIndex,rightIndex );
-  console.log('previous', diffLeftImg,diffMidImg,diffRightImg );
-  console.log(' ');
+  // console.log('current',leftIndex,midIndex,rightIndex );
+  // console.log('previous', diffLeftImg,diffMidImg,diffRightImg );
+  // console.log(' ');
 }
 // display();
 // console.table(ProDis.all);
@@ -115,6 +133,8 @@ function voting(event){
       compute();
     }
   }
+  // this.productsSave = JSON.stringify(ProDis.all); // converting product objects into strings
+  // localStorage.setItem('Products',this.productsSave); // saving product objects at local storage
 }
 
 // creating a function that will display the results
@@ -132,8 +152,6 @@ function compute(){
   }
   proChart();
 }
-// displaying for the first time
-display();
 
 // a function that will display a chart of products data after all rounds are finished
 function proChart(){
@@ -163,3 +181,6 @@ function proChart(){
     options: {}
   });
 }
+
+// displaying for the first time
+display();
