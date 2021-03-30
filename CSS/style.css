@@ -53,6 +53,7 @@ section#products>img{
     border-radius: 10px;
     margin-left: 3px;
     margin-right: 3px;
+    cursor: pointer;
 }
 button#reset{
     width: 104px;
@@ -70,6 +71,7 @@ button#reset:hover, p#flashy:hover{
     background-color: rgb(251, 255, 16);
     transition-duration: 0.5ms;
     transition-timing-function: ease-out;
+}
 section#list>ul{
     position: relative;
     right: 60px;
@@ -89,7 +91,5 @@ section#list li span{
     font-size: 17px;
     font-family: 'Lobster', cursive;
 }
-canvas#myChart{
-    height: 500px !important;
-}
+
 
