@@ -49,16 +49,17 @@ function randomNumb(max, min) {
 function display(){
   // making sure next iteration is different
   diffLeftImg = leftIndex;
+  diffMidImg = midIndex;
+  diffRightImg = rightIndex;
   do{
     // rendering the left image
     leftIndex = randomNumb(ProDis.all.length-1, 0);
     leftImage.src = ProDis.all[leftIndex].path;
     leftImage.alt = ProDis.all[leftIndex].name;
     leftImage.title = ProDis.all[leftIndex].name;
-  }while(diffLeftImg === leftIndex || leftIndex === diffMidImg || leftIndex === diffRightImg);
+  }while(leftIndex === diffLeftImg || leftIndex === diffMidImg || leftIndex === diffRightImg);
   ProDis.all[leftIndex].shown +=1;
   // assuring that mid image is different from its neighbor image and previous iteration image
-  diffMidImg = midIndex;
   do{
     // rendering the middle image
     midIndex = randomNumb(ProDis.all.length-1, 0);
@@ -68,7 +69,6 @@ function display(){
   }while(midIndex === leftIndex || midIndex === diffMidImg || midIndex === diffLeftImg || midIndex === diffRightImg);
   ProDis.all[midIndex].shown +=1;
   // assuring that left image is different from its neighbor image and previous iteration image
-  diffRightImg = rightIndex;
   do{
     // rendering the right image
     rightIndex = randomNumb(ProDis.all.length-1, 0);
@@ -77,6 +77,9 @@ function display(){
     rightImage.title = ProDis.all[rightIndex].name;
   }while(rightIndex === leftIndex || rightIndex === midIndex || rightIndex === diffRightImg || rightIndex === diffMidImg || rightIndex === diffLeftImg);
   ProDis.all[rightIndex].shown +=1;
+  console.log('current',leftIndex,midIndex,rightIndex );
+  console.log('previous', diffLeftImg,diffMidImg,diffRightImg );
+  console.log(' ');
 }
 // display();
 // console.table(ProDis.all);
@@ -84,7 +87,7 @@ function display(){
 // crating an event
 section.addEventListener('click', voting);
 
-// creating a voting function
+// creating a voting function attached to the event
 function voting(event){
   if(event.target.id !== 'products'){
     if(event.target.id === leftImage.id){
@@ -118,6 +121,7 @@ function voting(event){
 function compute(){
   const list = document.getElementById('list');
   const table = document.createElement('ul');
+  list.appendChild(table);
   for(let i=0; i<ProDis.all.length; i++){
     // setting votesChart and viewsChart data
     votesChart.push(ProDis.all[i].votes);
