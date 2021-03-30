@@ -23,7 +23,7 @@ const productNames =['bag', 'banana', 'bathroom', 'boots', 'breakfast',
 //products constructor
 function ProDis(name){
   this.name = name;
-  this.path = `./images/${name}.jpg`;
+  this.path = `../images/${name}.jpg`;
   this.votes = 0;
   this.shown = 0;
   ProDis.all.push(this);//   pushing every object created into an array called (all)
