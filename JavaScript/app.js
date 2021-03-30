@@ -57,6 +57,7 @@ const leftImage = document.getElementById('product1');
 const midImage = document.getElementById('product2');
 const rightImage = document.getElementById('product3');
 const section = document.getElementById('products');
+const btn = document.getElementById('reset');
 
 //generating a random number
 function randomNumb(max, min) {
@@ -115,7 +116,6 @@ function display(){
 
 // crating an event
 section.addEventListener('click', voting);
-
 // creating a voting function attached to the event
 function voting(event){
   if(event.target.id !== 'products'){
@@ -148,8 +148,13 @@ function voting(event){
       compute();//                                   calling the function that will create the list
     }
   }
-  // this.productsSave = JSON.stringify(ProDis.all); // converting product objects into strings
-  // localStorage.setItem('Products',this.productsSave); // saving product objects at local storage
+}
+
+// creating an event for resetting local storage
+btn.addEventListener('click', reset);
+function reset(){
+  localStorage.clear();
+  window.location.reload();
 }
 
 // creating a function that will display the results

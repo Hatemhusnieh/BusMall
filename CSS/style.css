@@ -28,6 +28,16 @@ main h4{
     font-family: sans-serif;
     font-weight: bold;
 }
+p#flashy{
+    font-size: 18px;
+    font-family: 'Lobster', cursive;
+    font-weight: bolder;
+    margin-left: 14%;
+    background-color: rgb(255 255 255 / 66%);
+    cursor: pointer;
+    width: fit-content;
+}
+}
 section#products:hover{
     cursor: pointer;
 }
@@ -44,9 +54,22 @@ section#products>img{
     margin-left: 3px;
     margin-right: 3px;
 }
-section#result{
-    width: fit-content;
+button#reset{
+    width: 104px;
+    height: 50px;
+    margin-left: 4%;
+    border-radius: 6px;
+    color: white;
+    font-family: cursive;
+    font-size: 30px;
+    background-color: rgb(189, 10, 10);
+    cursor: pointer;
 }
+
+button#reset:hover, p#flashy:hover{ 
+    background-color: rgb(251, 255, 16);
+    transition-duration: 0.5ms;
+    transition-timing-function: ease-out;
 section#list>ul{
     position: relative;
     right: 60px;
