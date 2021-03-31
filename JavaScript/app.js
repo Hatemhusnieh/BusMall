@@ -143,8 +143,7 @@ function voting(event){
       rightImage.alt = 'thanks';
       rightImage.title = 'thanks';
       // displaying the results
-      localStorage.removeItem('rounds');//           resetting number of rounds
-      localStorage.removeItem('Products');//         resetting local storage
+      localStorage.removeItem('rounds');//           resetting number of rounds when finishing
       compute();//                                   calling the function that will create the list
     }
   }
@@ -207,7 +206,11 @@ if(localStorage.getItem('Products') !== null){
   let getData = localStorage.getItem('Products');
   let oldData = JSON.parse(getData);
   ProDis.all = oldData;
-  numRounds = JSON.parse(localStorage.getItem('rounds'));
+  if(JSON.parse(localStorage.getItem('rounds') > 0)){
+    numRounds = JSON.parse(localStorage.getItem('rounds'));
+  }else{
+    numRounds = 25;//                                         if (rounds = 0) then reset it
+  }
   display();//                                                displaying old data (before the refresh)
 }else{
   display();//                                                 displaying for the first time
